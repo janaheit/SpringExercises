@@ -1,7 +1,9 @@
 package be.abis.exercise;
 
+import be.abis.exercise.service.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Some configs could go here...
@@ -15,4 +17,10 @@ public class ExerciseApplication {
         SpringApplication.run(ExerciseApplication.class, args);
     }
 
+    @Bean
+    public TrainingService trainingService(){
+        TrainingService abisTrainingService = new AbisTrainingService();
+        //abisTrainingService.setPersonService();
+        return abisTrainingService;
+    }
 }

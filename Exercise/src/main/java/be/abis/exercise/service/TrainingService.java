@@ -14,4 +14,6 @@ public interface TrainingService {
     void enrollForSession(Person person, Course course, LocalDate date) throws EnrollException;
     PersonService getPersonService();
     CourseService getCourseService();
+    void setPersonService(PersonService personService);
+    void setCourseService(CourseService courseService);
 }

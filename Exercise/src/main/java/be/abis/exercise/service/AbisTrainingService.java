@@ -12,13 +12,18 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.List;
 
-@Service
+// Service
 public class AbisTrainingService implements TrainingService {
 
-    @Autowired
+    /**
+     * @Autowired
+     *
+     * @Autowired
+     *
+     */
     private PersonService personService;
-    @Autowired
     private CourseService courseService;
+
     @Value("Welcome to this course!")
     private String welcomeMessage;
 
