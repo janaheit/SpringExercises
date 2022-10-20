@@ -6,7 +6,9 @@ import be.abis.exercise.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.InitBinder;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,6 +21,11 @@ public class AbisTrainingService implements TrainingService {
     private CourseService courseService;
     @Value("Welcome to this course!")
     private String welcomeMessage;
+
+    @PostConstruct
+    public void init(){
+        System.out.println("AbisTrainingService is ready for work!");
+    }
 
     @Override
     public String getWelcomeMessage() {
@@ -33,5 +40,25 @@ public class AbisTrainingService implements TrainingService {
     @Override
     public void enrollForSession(Person person, Course course, LocalDate date) throws EnrollException {
 
+    }
+
+    public PersonService getPersonService() {
+        return personService;
+    }
+
+    public void setPersonService(PersonService personService) {
+        this.personService = personService;
+    }
+
+    public CourseService getCourseService() {
+        return courseService;
+    }
+
+    public void setCourseService(CourseService courseService) {
+        this.courseService = courseService;
+    }
+
+    public void setWelcomeMessage(String welcomeMessage) {
+        this.welcomeMessage = welcomeMessage;
     }
 }
