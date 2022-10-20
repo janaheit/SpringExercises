@@ -10,8 +10,21 @@ public class Person {
 	private String password;
 	private String language;
 	private Company company;
-	
-	
+
+	public Person() {
+	}
+
+	public Person(int personId, String firstName, String lastName, int age, String emailAddress, String password, String language, Company company) {
+		this.personId = personId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.emailAddress = emailAddress;
+		this.password = password;
+		this.language = language;
+		this.company = company;
+	}
+
 	public int getPersonId() {
 		return personId;
 	}

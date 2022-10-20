@@ -6,7 +6,17 @@ public class Company{
 	private String telephoneNumber;
 	private String vatNr;
 	private Address address;
-		
+
+	public Company() {
+	}
+
+	public Company(String name, String telephoneNumber, String vatNr, Address address) {
+		this.name = name;
+		this.telephoneNumber = telephoneNumber;
+		this.vatNr = vatNr;
+		this.address = address;
+	}
+
 	public String getName() {
 		return name;
 	}
