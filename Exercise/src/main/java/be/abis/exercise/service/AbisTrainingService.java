@@ -12,16 +12,12 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.util.List;
 
-// Service
+//@Service
 public class AbisTrainingService implements TrainingService {
 
-    /**
-     * @Autowired
-     *
-     * @Autowired
-     *
-     */
+    //@Autowired
     private PersonService personService;
+    //@Autowired
     private CourseService courseService;
 
     @Value("Welcome to this course!")
@@ -44,7 +40,9 @@ public class AbisTrainingService implements TrainingService {
 
     @Override
     public void enrollForSession(Person person, Course course, LocalDate date) throws EnrollException {
-
+        if (date.isBefore(LocalDate.now())) throw new EnrollException("Date is in the past.");
+        System.out.println(person.getFirstName() + " is now enrolled for the "
+                                + course.getShortTitle() + " course on " + date);
     }
 
     public PersonService getPersonService() {

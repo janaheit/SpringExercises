@@ -1,5 +1,7 @@
 package be.abis.exercise;
 
+import be.abis.exercise.model.Course;
+import be.abis.exercise.model.Person;
 import be.abis.exercise.service.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,9 +20,10 @@ public class ExerciseApplication {
     }
 
     @Bean
-    public TrainingService trainingService(){
+    public TrainingService trainingService(PersonService ps, CourseService cs){
         TrainingService abisTrainingService = new AbisTrainingService();
-        //abisTrainingService.setPersonService();
+        abisTrainingService.setPersonService(ps);
+        abisTrainingService.setCourseService(cs);
         return abisTrainingService;
     }
 }
