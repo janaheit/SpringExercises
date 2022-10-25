@@ -1,14 +1,12 @@
 package be.abis.exercise.controller;
 
 import be.abis.exercise.formmodel.LoginModel;
+import be.abis.exercise.model.Person;
 import be.abis.exercise.service.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MyController {
@@ -30,7 +28,11 @@ public class MyController {
     }
 
     @PostMapping("/login")
-    public String loginPost(Model model, LoginModel loginModel){
-        
+    public String showUser(Model model, LoginModel login){
+        Person p = trainingService.getPersonService().findPerson(login.getEmail(), login.getPassword());
+
+        model.addAttribute("firstName", p.getFirstName());
+        model.addAttribute("lastName", p.getLastName());
+        return "showUser";
     }
 }

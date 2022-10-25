@@ -77,6 +77,7 @@ public class FilePersonRepository implements PersonRepository {
 
 	@Override
 	public Person findPerson(String emailAddress, String passWord) {
+		// System.out.println(emailAddress + " - " + passWord);
 		if (emailAddress == null || passWord == null) {
 			return null;
 		}
@@ -86,8 +87,10 @@ public class FilePersonRepository implements PersonRepository {
 		Iterator<Person> iter = allPersons.iterator();
 
 		while (iter.hasNext()) {
+			// System.out.println("while loop");
 			Person pers = iter.next();
 			if (pers.getEmailAddress().equalsIgnoreCase(emailAddress) && pers.getPassword().equals(passWord)) {
+				System.out.println("person found");
 				return pers;
 			}
 		}
