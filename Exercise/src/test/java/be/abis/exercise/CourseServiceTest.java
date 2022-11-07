@@ -1,5 +1,6 @@
 package be.abis.exercise;
 
+import be.abis.exercise.exceptions.CourseNotFoundException;
 import be.abis.exercise.service.CourseService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,12 @@ public class CourseServiceTest {
     private CourseService service;
 
     @Test
-    void findTitleOfCourseID7900(){
+    void findTitleOfCourseID7900() throws CourseNotFoundException {
         assertEquals("Workshop SQL", service.findCourse(7900).getShortTitle());
     }
 
     @Test
-    void findIDOfCourseNameWorkshopSQL(){
+    void findIDOfCourseNameWorkshopSQL() throws CourseNotFoundException {
         assertEquals("7900", service.findCourse("Workshop SQL").getCourseId());
     }
 

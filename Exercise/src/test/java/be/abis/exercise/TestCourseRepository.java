@@ -1,5 +1,6 @@
 package be.abis.exercise;
 
+import be.abis.exercise.exceptions.CourseNotFoundException;
 import be.abis.exercise.repository.CourseRepository;
 import be.abis.exercise.repository.MemoryCourseRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +24,7 @@ public class TestCourseRepository {
 	}
 	
 	@Test
-	public void courseWithId8050isMaven() {
+	public void courseWithId8050isMaven() throws CourseNotFoundException {
 		String title = cr.findCourse(8050).getShortTitle();
 		assertEquals("Maven",title);
 	}

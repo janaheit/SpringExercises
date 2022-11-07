@@ -1,9 +1,12 @@
 package be.abis.exercise.repository;
 
+import be.abis.exercise.exceptions.CourseAlreadyExistsException;
+import be.abis.exercise.exceptions.CourseNotFoundException;
 import be.abis.exercise.model.Course;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -36,15 +39,53 @@ public class MemoryCourseRepository implements CourseRepository {
 	}
 
 	@Override
-	public Course findCourse(int id) {
-		return courses.stream().filter(c->c.getCourseId().equals(id+"")).findFirst().orElse(null);
+	public Course findCourse(int id) throws CourseNotFoundException {
+		return courses.stream().filter(c->c.getCourseId().equals(id+"")).findFirst().orElseThrow(() -> new CourseNotFoundException("This course does not exist."));
 	}
 
 	@Override
-	public Course findCourse(String shortTitle) {
-		return courses.stream().filter(c->c.getShortTitle().equals(shortTitle)).findFirst().orElse(null);
+	public Course findCourse(String shortTitle) throws CourseNotFoundException {
+		return courses.stream().filter(c->c.getShortTitle().equalsIgnoreCase(shortTitle)).findFirst().orElseThrow(() -> new CourseNotFoundException("This course does not exist."));
 	}
 
+	@Override
+	public void addCourse(Course course) throws CourseAlreadyExistsException {
+		if (this.courses.contains(course)) throw new CourseAlreadyExistsException("This course '"
+				+ course.getShortTitle() + "' already exists.");
+
+		this.courses.add(course);
+	}
+
+	@Override
+	public void deleteCourse(String id) throws CourseNotFoundException {
+		Iterator<Course> iterator = this.courses.iterator();
+
+		Boolean found = false;
+
+		while (iterator.hasNext()){
+			Course c = iterator.next();
+			if (c.getCourseId().equals(id)) {
+				iterator.remove();
+				found=true;
+			}
+		}
+
+		if (!found) throw new CourseNotFoundException("The course with id " + id + " was not found and could therefore not be deleted.");
+	}
+
+	@Override
+	public void updateCoursePrice(String id, double pricePerDay) throws CourseNotFoundException {
+		boolean found = false;
+		for (Course c:this.courses){
+			if (c.getCourseId().equals(id)){
+				c.setPricePerDay(pricePerDay);
+				found = true;
+			}
+		}
+
+		if (!found) throw new CourseNotFoundException("The course with id "
+				+ id + " could not be found and therefore was not updated.");
+	}
 
 
 }

@@ -1,6 +1,7 @@
 package be.abis.exercise;
 
 
+import be.abis.exercise.exceptions.CourseNotFoundException;
 import be.abis.exercise.exceptions.EnrollException;
 import be.abis.exercise.model.Course;
 import be.abis.exercise.model.Person;
@@ -31,12 +32,12 @@ public class TrainingServiceTest {
     }
 
     @Test
-    void findCourseByIDWorks(){
+    void findCourseByIDWorks() throws CourseNotFoundException {
         assertEquals("Workshop SQL", service.getCourseService().findCourse(7900).getShortTitle());
     }
 
     @Test
-    void enrollJohnForWorkshopSQL() throws EnrollException {
+    void enrollJohnForWorkshopSQL() throws EnrollException, CourseNotFoundException {
         Person p = service.getPersonService().findPerson(1);
         Course c = service.getCourseService().findCourse(7900);
 
@@ -45,7 +46,7 @@ public class TrainingServiceTest {
     }
 
     @Test
-    void enrollJohnInPastThrowsException(){
+    void enrollJohnInPastThrowsException() throws CourseNotFoundException {
         Person p = service.getPersonService().findPerson(1);
         Course c = service.getCourseService().findCourse(7900);
 
